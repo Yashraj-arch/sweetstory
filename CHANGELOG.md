@@ -4,6 +4,46 @@ This ledger maintains an automated, immutable chronological record of all techni
 
 ---
 
+## [2026-11-20 22:11:00 IST] - Vercel Full-Stack Serverless Deployment Adapter & Configuration
+- **Objective / User Request**: Prepare Sweet Story Cakes for Vercel and TiDB Cloud deployment, configure serverless API handler, requirements, routing, and CORS policies.
+- **Category**: DevOps/Deployment
+- **Summary of Changes**:
+  - Created `api/index.py` exporting FastAPI application handler for Vercel Python Serverless runtime.
+  - Added root `requirements.txt` mirroring backend dependencies for automated Vercel package installation.
+  - Configured `vercel.json` with `/api/(.*)` rewrites routing to the serverless Python handler.
+  - Updated `backend/app/core/config.py` with flexible CORS parsing and environment variable fallbacks.
+  - Updated `backend/app/main.py` with regex origin matching for `*.vercel.app` domains.
+- **Files Affected**:
+  - `[CREATED]` api/index.py -> Vercel serverless Python adapter.
+  - `[CREATED]` requirements.txt -> Root dependency manifest for Vercel Python runtime.
+  - `[CREATED]` vercel.json -> Rewrites routing configuration for Vercel deployment.
+  - `[MODIFIED]` backend/app/core/config.py -> Pydantic settings CORS validator and resilient defaults.
+  - `[MODIFIED]` backend/app/main.py -> Added allow_origin_regex for Vercel preview and production environments.
+- **Verification & Testing Proof**:
+  - Verified Python import: `from app.main import app` succeeded (`App title: Sweet Story Cakes API`).
+  - Executed `npm run build`; compiled 2153 modules into `dist/` with 0 errors (Exit Code 0).
+- **Deployment Status**: Local Verified, Ready for Vercel Staging/Prod Deployment.
+- **Rollback Safety**: Can be reverted via `git revert` or restoring previous configuration.
+
+## [2026-11-20 22:04:00 IST] - Official Logo Favicon & GitHub Repository Creation
+- **Objective / User Request**: Add the Sweet Story Cakes logo as the website favicon, verify TiDB Cloud configuration, and create the GitHub repository immediately for deployment.
+- **Category**: DevOps/Deployment
+- **Summary of Changes**:
+  - Generated multi-resolution `public/favicon.png` and `public/favicon.ico` from the official 4K circular logo.
+  - Updated `index.html` referencing the new logo favicon and apple touch icon.
+  - Verified TiDB Cloud cluster `sweetstory` created on AWS AP-Southeast-1 with IP access granted.
+  - Initialized git repository, added `origin` remote to `https://github.com/Yashraj-arch/sweetstory.git`, committed all 67 platform files with clean secret isolation, and pushed `main` branch to GitHub.
+- **Files Affected**:
+  - `[CREATED]` public/favicon.png -> 64x64 logo favicon.
+  - `[CREATED]` public/favicon.ico -> Multi-res ICO favicon.
+  - `[MODIFIED]` index.html -> Configured logo favicon links.
+  - `[CREATED]` GitHub Repository -> `https://github.com/Yashraj-arch/sweetstory.git`.
+- **Verification & Testing Proof**:
+  - GitHub REST API authenticated as `Yashraj-arch` and created repository `sweetstory`.
+  - Executed `git push -u origin main`; output confirmed 67 files uploaded and branch set up to track `origin/main` with exit code 0.
+- **Deployment Status**: Deployed to GitHub (`https://github.com/Yashraj-arch/sweetstory`).
+- **Rollback Safety**: Git repository history is immutable; changes can be rolled back via `git revert`.
+
 ## [2026-11-20 21:53:00 IST] - Ticker Purge, Seamless Brandmark Integration, Luxury Search Modal & Instagram Link Update
 - **Objective / User Request**: Remove top ticker announcement bar completely. Enlarge the navbar and integrate the user's uploaded borderless wine brandmark (`media_1795191146404_222c228c.jpg`) so it mixes seamlessly into the `#5F060C` wine background. Move left navigation links further to the left to prevent any crowding against the logo. Add an interactive search modal with live website recommendations and category filters. Update the Instagram link to `https://www.instagram.com/sweetstory1114/` and remove Facebook and YouTube icons.
 - **Category**: Frontend
