@@ -22,7 +22,7 @@ class Settings(BaseSettings):
     )
     
     # CORS
-    CORS_ORIGINS: List[str] = [
+    CORS_ORIGINS: Union[str, List[str]] = [
         "http://localhost:3000",
         "http://localhost:5173",
         "http://127.0.0.1:3000",
@@ -32,7 +32,13 @@ class Settings(BaseSettings):
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
-        if isinstance(v, str) and not v.startswith("["):
+        if isinstance(v, str):
+            if v.startswith("["):
+                try:
+                    import json
+                    return json.loads(v)
+                except Exception:
+                    pass
             return [i.strip() for i in v.split(",") if i.strip()]
         elif isinstance(v, list):
             return v

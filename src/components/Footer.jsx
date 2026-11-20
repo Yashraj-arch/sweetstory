@@ -75,12 +75,9 @@ export default function Footer({ onOpenUpi, onOpenAuth, onOpenAbout }) {
               <li>
                 <button 
                   onClick={onOpenAbout} 
-                  className="hover:text-[#5C050D] text-[#5C050D] font-bold transition-colors flex items-center gap-1.5 text-left group"
+                  className="hover:text-[#5C050D] text-[#34221D] font-medium transition-colors text-left"
                 >
-                  <span>About Us (Our Story)</span>
-                  <span className="text-[9px] font-mono uppercase bg-[#5C050D] text-white px-1.5 py-0.5 rounded-full group-hover:bg-[#430408]">
-                    Artist CV
-                  </span>
+                  About Us
                 </button>
               </li>
               <li>

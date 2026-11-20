@@ -4,6 +4,24 @@ This ledger maintains an automated, immutable chronological record of all techni
 
 ---
 
+## [2026-11-20 22:39:00 IST] - Clean Typography Refinement & Resilient Vercel Serverless CORS Configuration
+- **Objective / User Request**: Remove the oval 'Artist CV' badge beside About Us in the footer for clean typography, resolve Vercel serverless CORS parsing error, and deploy cleanly to GitHub.
+- **Category**: Frontend & DevOps/Deployment
+- **Summary of Changes**:
+  - Removed the red oval 'Artist CV' badge beside "About Us" in `src/components/Footer.jsx`, replacing it with clean Stumptown-style editorial link typography.
+  - Refactored `backend/app/core/config.py` with `CORS_ORIGINS: Union[str, List[str]]` and resilient string/JSON parsing, preventing Vercel `JSONDecodeError` on serverless cold starts.
+  - Rebuilt static assets with `npm run build` with 0 warnings/errors.
+  - Pushed update to GitHub repository `origin/main` for automatic clean Vercel deployment.
+- **Files Affected**:
+  - `[MODIFIED]` src/components/Footer.jsx -> Removed oval Artist CV badge beside About Us link.
+  - `[MODIFIED]` backend/app/core/config.py -> Enabled resilient Union[str, List[str]] environment parsing.
+- **Verification & Testing Proof**:
+  - Ran Python import test: `Settings()` successfully instantiated with comma-separated, JSON-formatted, and default origins.
+  - Executed `npm run build`; compiled 2,154 modules into `dist/` with 0 errors (Exit Code 0).
+  - Executed `git push origin main`; updated remote repository to latest commit.
+- **Deployment Status**: Local Verified, Pushed to GitHub (`https://github.com/Yashraj-arch/sweetstory.git`), Triggering Clean Vercel Redeployment.
+- **Rollback Safety**: Reversible via `git revert` or rolling back to previous commit.
+
 ## [2026-11-20 22:27:00 IST] - About Us Artist Profile (Rajnandini Zaveri), CV Integration & Social Email Actions
 - **Objective / User Request**: Add an Email icon next to Instagram in the footer linked to `zaverirajnandini@gmail.com`. Add "About Us" under Explore in the footer and in the navbar. Create an About Us profile page/modal featuring Rajnandini Zaveri's photo, career objective, 7 years of confectionery mastery, core skills, and CV information from the uploaded resume.
 - **Category**: Frontend
