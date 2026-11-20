@@ -134,3 +134,31 @@ export const ordersAPI = {
     return await res.json();
   }
 };
+
+export const assistantAPI = {
+  async getContext() {
+    try {
+      const res = await fetch(`${API_BASE}/assistant/context`);
+      if (!res.ok) return null;
+      return await res.json();
+    } catch (e) {
+      return null;
+    }
+  },
+
+  async sendChat(messages, customerName = null) {
+    const res = await fetch(`${API_BASE}/assistant/chat`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        messages,
+        customer_name: customerName,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.detail || 'Assistant temporarily unavailable');
+    }
+    return data;
+  }
+};

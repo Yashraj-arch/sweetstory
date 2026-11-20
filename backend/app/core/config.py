@@ -53,6 +53,12 @@ class Settings(BaseSettings):
     
     SUBSCRIBE_RATE_LIMIT_MAX: int = 10
     SUBSCRIBE_RATE_LIMIT_WINDOW: int = 60  # 1 minute
+    
+    # AI Assistant (Groq Cloud)
+    GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    GROQ_MODEL: str = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
+    ASSISTANT_RATE_LIMIT_MAX: int = 30
+    ASSISTANT_RATE_LIMIT_WINDOW: int = 60  # 30 msgs / min
 
     model_config = SettingsConfigDict(
         env_file=str(BASE_DIR / ".env"),

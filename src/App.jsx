@@ -12,6 +12,7 @@ import AuthModal from './components/AuthModal';
 import OfferSubscriptionToast from './components/OfferSubscriptionToast';
 import SearchModal from './components/SearchModal';
 import AboutModal from './components/AboutModal';
+import FloatingAssistant from './components/FloatingAssistant';
 import { authAPI } from './services/api';
 
 export default function App() {
@@ -139,6 +140,12 @@ export default function App() {
 
       {/* Dismissible Offer & Updates Toast */}
       <OfferSubscriptionToast />
+
+      {/* Floating AI Concierge Assistant (Groq Powered) */}
+      <FloatingAssistant
+        onOpenAbout={() => setAboutModalOpen(true)}
+        onOpenBuilder={() => scrollToSection('builder')}
+      />
 
     </div>
   );

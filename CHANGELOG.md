@@ -4,6 +4,33 @@ This ledger maintains an automated, immutable chronological record of all techni
 
 ---
 
+## [2026-11-20 22:58:00 IST] - Groq AI Floating Concierge Assistant (OpenAI GPT-OSS-120B) with Multilingual & IST Memory
+- **Objective / User Request**: Add a floating assistant toggle in the bottom-right corner. Configure Groq API keys with model `openai/gpt-oss-120b`, provide time-aware greetings in Indian Standard Time (IST), ensure deep domain knowledge of Rajnandini Zaveri's CV, location (Lonand, Satara), 100% vegetarian cake catalog, multilingual adaptability (English, Marathi, Hindi), strict guardrails, and 1-click WhatsApp order handoff.
+- **Category**: Backend & Frontend
+- **Summary of Changes**:
+  - Implemented `backend/app/api/v1/endpoints/assistant.py` integrating Groq Cloud API with `openai/gpt-oss-120b` and dynamic IST context calculation (`Asia/Kolkata`, UTC+5:30).
+  - Defined strict domain guardrails, multilingual adaptability (English, Marathi, Hindi), and fallback knowledge engine.
+  - Implemented `backend/app/schemas/assistant.py` with validated chat request and response schemas.
+  - Configured `GROQ_API_KEY` and `GROQ_MODEL` settings in `backend/app/core/config.py` and `backend/.env`.
+  - Built `src/components/FloatingAssistant.jsx` featuring a luxury floating toggle in `#5F060C` wine, dynamic speech bubble, quick chips, conversation memory, and 1-click WhatsApp order generation.
+  - Connected `assistantAPI` in `src/services/api.js` and mounted the component in `src/App.jsx`.
+- **Files Affected**:
+  - `[CREATED]` backend/app/api/v1/endpoints/assistant.py -> FastAPI endpoint for AI Concierge.
+  - `[CREATED]` backend/app/schemas/assistant.py -> Pydantic schemas for chat payload and actions.
+  - `[CREATED]` src/components/FloatingAssistant.jsx -> Floating toggle and chat interface.
+  - `[MODIFIED]` backend/app/api/v1/api.py -> Registered assistant router under `/api/v1/assistant`.
+  - `[MODIFIED]` backend/app/core/config.py -> Added Groq configuration and rate limit parameters.
+  - `[MODIFIED]` backend/app/schemas/__init__.py -> Exported assistant schemas.
+  - `[MODIFIED]` src/services/api.js -> Added assistant API service layer.
+  - `[MODIFIED]` src/App.jsx -> Mounted FloatingAssistant.
+- **Verification & Testing Proof**:
+  - Tested `/api/v1/assistant/context`: Returned HTTP 200 with IST time (`10:58 PM`), greeting (`Hello & Welcome`), and studio status.
+  - Tested `/api/v1/assistant/chat` with English prompt: Groq `openai/gpt-oss-120b` responded with studio location and delivery info (HTTP 200).
+  - Tested `/api/v1/assistant/chat` with Marathi prompt: Groq responded in fluent Marathi with accurate night-hours guidance (HTTP 200).
+  - Executed `npm run build`: Compiled 2,155 modules into `dist/` with 0 errors (Exit Code 0).
+- **Deployment Status**: Local Verified, Pushed to GitHub (`https://github.com/Yashraj-arch/sweetstory.git`), Triggering Clean Vercel Redeployment.
+- **Rollback Safety**: Reversible via `git revert` or restoring previous commit.
+
 ## [2026-11-20 22:39:00 IST] - Clean Typography Refinement & Resilient Vercel Serverless CORS Configuration
 - **Objective / User Request**: Remove the oval 'Artist CV' badge beside About Us in the footer for clean typography, resolve Vercel serverless CORS parsing error, and deploy cleanly to GitHub.
 - **Category**: Frontend & DevOps/Deployment
