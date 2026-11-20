@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MessageCircle, ArrowRight, QrCode } from 'lucide-react';
+import { MessageCircle, ArrowRight, QrCode, Mail, User } from 'lucide-react';
 import { BAKERY_INFO } from '../data/cakes';
 import { subscriberAPI } from '../services/api';
 
@@ -14,7 +14,7 @@ function InstagramIcon({ className = "w-4 h-4" }) {
   );
 }
 
-export default function Footer({ onOpenUpi, onOpenAuth }) {
+export default function Footer({ onOpenUpi, onOpenAuth, onOpenAbout }) {
   const [subInput, setSubInput] = useState('');
   const [subSuccess, setSubSuccess] = useState(false);
   const [subLoading, setSubLoading] = useState(false);
@@ -72,6 +72,17 @@ export default function Footer({ onOpenUpi, onOpenAuth }) {
               EXPLORE
             </span>
             <ul className="space-y-2 text-xs font-medium text-[#34221D]">
+              <li>
+                <button 
+                  onClick={onOpenAbout} 
+                  className="hover:text-[#5C050D] text-[#5C050D] font-bold transition-colors flex items-center gap-1.5 text-left group"
+                >
+                  <span>About Us (Our Story)</span>
+                  <span className="text-[9px] font-mono uppercase bg-[#5C050D] text-white px-1.5 py-0.5 rounded-full group-hover:bg-[#430408]">
+                    Artist CV
+                  </span>
+                </button>
+              </li>
               <li>
                 <a href="#location" className="hover:text-[#5C050D] transition-colors">Locations</a>
               </li>
@@ -183,7 +194,7 @@ export default function Footer({ onOpenUpi, onOpenAuth }) {
               </form>
             )}
 
-            {/* Stumptown Circular Social Icons: WhatsApp & Official Instagram */}
+            {/* Stumptown Circular Social Icons: WhatsApp, Official Instagram & Direct Email */}
             <div className="flex items-center gap-2 pt-2">
               <a
                 href={`https://wa.me/${BAKERY_INFO.whatsappNumber}`}
@@ -202,6 +213,13 @@ export default function Footer({ onOpenUpi, onOpenAuth }) {
                 title="Official Instagram (@sweetstory1114)"
               >
                 <InstagramIcon className="w-4 h-4" />
+              </a>
+              <a
+                href="mailto:zaverirajnandini@gmail.com"
+                className="w-9 h-9 rounded-full bg-[#D8D1C4] hover:bg-[#C8BEAD] text-[#231815] flex items-center justify-center transition-colors"
+                title="Email Head Pastry Artist Rajnandini (zaverirajnandini@gmail.com)"
+              >
+                <Mail className="w-4 h-4" />
               </a>
             </div>
 

@@ -11,12 +11,14 @@ import UpiPaymentModal from './components/UpiPaymentModal';
 import AuthModal from './components/AuthModal';
 import OfferSubscriptionToast from './components/OfferSubscriptionToast';
 import SearchModal from './components/SearchModal';
+import AboutModal from './components/AboutModal';
 import { authAPI } from './services/api';
 
 export default function App() {
   const [upiModalOpen, setUpiModalOpen] = useState(false);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
+  const [aboutModalOpen, setAboutModalOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const [initialCakeForBuilder, setInitialCakeForBuilder] = useState(null);
 
@@ -33,6 +35,18 @@ export default function App() {
       }
     };
     checkSession();
+
+    // Support direct hash link #about
+    if (window.location.hash === '#about') {
+      setAboutModalOpen(true);
+    }
+    const handleHashChange = () => {
+      if (window.location.hash === '#about') {
+        setAboutModalOpen(true);
+      }
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
   const scrollToSection = (id) => {
@@ -53,6 +67,7 @@ export default function App() {
         currentUser={currentUser}
         onOpenAuth={() => setAuthModalOpen(true)}
         onOpenSearch={() => setSearchModalOpen(true)}
+        onOpenAbout={() => setAboutModalOpen(true)}
       />
 
       {/* Main Content */}
@@ -90,12 +105,20 @@ export default function App() {
       <Footer 
         onOpenUpi={() => setUpiModalOpen(true)} 
         onOpenAuth={() => setAuthModalOpen(true)}
+        onOpenAbout={() => setAboutModalOpen(true)}
       />
 
       {/* UPI Payment Modal */}
       <UpiPaymentModal
         isOpen={upiModalOpen}
         onClose={() => setUpiModalOpen(false)}
+      />
+
+      {/* Head Pastry Artist & About Us Modal */}
+      <AboutModal
+        isOpen={aboutModalOpen}
+        onClose={() => setAboutModalOpen(false)}
+        onOpenBuilder={() => scrollToSection('builder')}
       />
 
       {/* Customer Auth & Profile Modal */}

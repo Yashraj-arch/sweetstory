@@ -4,6 +4,28 @@ This ledger maintains an automated, immutable chronological record of all techni
 
 ---
 
+## [2026-11-20 22:27:00 IST] - About Us Artist Profile (Rajnandini Zaveri), CV Integration & Social Email Actions
+- **Objective / User Request**: Add an Email icon next to Instagram in the footer linked to `zaverirajnandini@gmail.com`. Add "About Us" under Explore in the footer and in the navbar. Create an About Us profile page/modal featuring Rajnandini Zaveri's photo, career objective, 7 years of confectionery mastery, core skills, and CV information from the uploaded resume.
+- **Category**: Frontend
+- **Summary of Changes**:
+  - Embedded high-res photo `public/images/rajnandini_zaveri.jpg` and resume document `public/images/rajnandini_resume.jpg`.
+  - Built `src/components/AboutModal.jsx` featuring editorial profile, philosophy, career objective, core skills grid, 7-year experience highlights, direct email/phone contact, and full CV image preview.
+  - Added direct email icon button in `Footer.jsx` next to Instagram linking to `mailto:zaverirajnandini@gmail.com`.
+  - Added "About Us (Our Story)" with "Artist CV" badge under the Explore column in `Footer.jsx` and in `Navbar.jsx`.
+  - Supported deep linking via URL hash `#about` in `App.jsx`.
+- **Files Affected**:
+  - `[CREATED]` public/images/rajnandini_zaveri.jpg -> High-resolution head pastry artist portrait.
+  - `[CREATED]` public/images/rajnandini_resume.jpg -> Original CV image for preview/download.
+  - `[CREATED]` src/components/AboutModal.jsx -> Comprehensive artist bio, CV breakdown, and consultation actions.
+  - `[MODIFIED]` src/components/Footer.jsx -> Added mailto social icon and About Us link under Explore.
+  - `[MODIFIED]` src/components/Navbar.jsx -> Integrated About Us link into desktop and mobile menus.
+  - `[MODIFIED]` src/App.jsx -> Integrated AboutModal state and `#about` hash handler.
+- **Verification & Testing Proof**:
+  - Executed `npm run build`; compiled 2,154 modules into `dist/` with 0 errors (Exit Code 0).
+  - Verified local preview server response: `http://localhost:3000` responded HTTP 200.
+- **Deployment Status**: Local Verified, Pushed to GitHub (`https://github.com/Yashraj-arch/sweetstory.git`).
+- **Rollback Safety**: Reversible via `git revert` or restoring previous commit.
+
 ## [2026-11-20 22:11:00 IST] - Vercel Full-Stack Serverless Deployment Adapter & Configuration
 - **Objective / User Request**: Prepare Sweet Story Cakes for Vercel and TiDB Cloud deployment, configure serverless API handler, requirements, routing, and CORS policies.
 - **Category**: DevOps/Deployment

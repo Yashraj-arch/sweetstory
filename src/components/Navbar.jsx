@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, User, Search, ShoppingBag } from 'lucide-react';
 import { BAKERY_INFO } from '../data/cakes';
 
-export default function Navbar({ onOpenQuiz, onOpenBuilder, onOpenUpi, currentUser, onOpenAuth, onOpenSearch }) {
+export default function Navbar({ onOpenQuiz, onOpenBuilder, onOpenUpi, currentUser, onOpenAuth, onOpenSearch, onOpenAbout }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -17,6 +17,7 @@ export default function Navbar({ onOpenQuiz, onOpenBuilder, onOpenUpi, currentUs
   const navLinks = [
     { name: 'Signature Cakes', href: '#signatures' },
     { name: 'Custom Studio', href: '#builder', onClick: onOpenBuilder },
+    { name: 'About Us', href: '#about', onClick: onOpenAbout },
     { name: 'Reviews', href: '#reviews' },
     { name: 'Locations', href: '#location' },
   ];
