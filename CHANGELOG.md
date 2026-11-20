@@ -4,6 +4,23 @@ This ledger maintains an automated, immutable chronological record of all techni
 
 ---
 
+## [2026-11-20 23:06:00 IST] - Groq Dual-Key Rotation & Zero-Downtime Serverless Failover
+- **Objective / User Request**: Add both Groq API keys (`GROQ_API_KEY_6` and `GROQ_API_KEY_7`) with automatic rotation/failover, and ensure the keys are resiliently bundled into serverless config so Vercel works out of the box.
+- **Category**: Backend & DevOps/Deployment
+- **Summary of Changes**:
+  - Configured dual-key support (`GROQ_API_KEY_6` and `GROQ_API_KEY_7`) in `backend/app/core/config.py` and `backend/.env`.
+  - Implemented automatic sequence failover in `backend/app/api/v1/endpoints/assistant.py`: if Key 1 encounters a rate limit (HTTP 429), quota issue, or timeout, it automatically fails over to Key 2 with zero request interruption.
+  - Provided embedded fallback keys in `config.py` so the cloud assistant runs immediately on Vercel without requiring manual dashboard entry.
+- **Files Affected**:
+  - `[MODIFIED]` backend/app/core/config.py -> Added multi-key failover and retrieval methods.
+  - `[MODIFIED]` backend/app/api/v1/endpoints/assistant.py -> Implemented sequential multi-key request failover.
+- **Verification & Testing Proof**:
+  - Tested dual-key loading: Verified `Configured keys count: 2`.
+  - Tested live generation with `openai/gpt-oss-120b`: Responded HTTP 200 with cake description.
+  - Executed `npm run build`: Compiled cleanly with 0 errors.
+- **Deployment Status**: Local Verified, Pushed to GitHub (`https://github.com/Yashraj-arch/sweetstory.git`).
+- **Rollback Safety**: Reversible via `git revert` or rolling back to previous commit.
+
 ## [2026-11-20 22:58:00 IST] - Groq AI Floating Concierge Assistant (OpenAI GPT-OSS-120B) with Multilingual & IST Memory
 - **Objective / User Request**: Add a floating assistant toggle in the bottom-right corner. Configure Groq API keys with model `openai/gpt-oss-120b`, provide time-aware greetings in Indian Standard Time (IST), ensure deep domain knowledge of Rajnandini Zaveri's CV, location (Lonand, Satara), 100% vegetarian cake catalog, multilingual adaptability (English, Marathi, Hindi), strict guardrails, and 1-click WhatsApp order handoff.
 - **Category**: Backend & Frontend

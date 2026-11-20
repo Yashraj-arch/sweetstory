@@ -151,63 +151,67 @@ def assistant_chat(payload: AssistantChatRequest, request: Request):
         
     last_user_message = payload.messages[-1].content
     
-    # Check if Groq API is configured
-    groq_key = settings.GROQ_API_KEY.strip()
+    # Multi-Key Groq API Execution with Automatic Failover
+    available_keys = settings.get_all_groq_keys()
     ai_reply = None
     
-    if groq_key:
-        try:
-            system_prompt = SYSTEM_PROMPT_TEMPLATE.format(
-                date_str=ist["date_str"],
-                time_str=ist["time_str"],
-                period=ist["period"],
-                greeting=ist["greeting"],
-                greeting_mr=ist["greeting_mr"],
-                greeting_hi=ist["greeting_hi"],
-                studio_status_text=studio_status_text
-            )
+    if available_keys:
+        system_prompt = SYSTEM_PROMPT_TEMPLATE.format(
+            date_str=ist["date_str"],
+            time_str=ist["time_str"],
+            period=ist["period"],
+            greeting=ist["greeting"],
+            greeting_mr=ist["greeting_mr"],
+            greeting_hi=ist["greeting_hi"],
+            studio_status_text=studio_status_text
+        )
+        
+        # Format message thread for Groq
+        formatted_messages = [{"role": "system", "content": system_prompt}]
+        # Keep up to last 8 turns for memory
+        for m in payload.messages[-8:]:
+            formatted_messages.append({"role": m.role, "content": m.content})
             
-            # Format message thread for Groq
-            formatted_messages = [{"role": "system", "content": system_prompt}]
-            # Keep up to last 8 turns for memory
-            for m in payload.messages[-8:]:
-                formatted_messages.append({"role": m.role, "content": m.content})
+        groq_url = "https://api.groq.com/openai/v1/chat/completions"
+        groq_payload = {
+            "model": settings.GROQ_MODEL,
+            "messages": formatted_messages,
+            "temperature": 0.6,
+            "max_tokens": 500
+        }
+
+        # Try available keys in sequence (Key 1 -> Key 2)
+        for key_idx, groq_key in enumerate(available_keys):
+            try:
+                headers = {
+                    "Authorization": f"Bearer {groq_key}",
+                    "Content-Type": "application/json",
+                    "User-Agent": "SweetStory/1.0"
+                }
                 
-            groq_url = "https://api.groq.com/openai/v1/chat/completions"
-            groq_payload = {
-                "model": settings.GROQ_MODEL,
-                "messages": formatted_messages,
-                "temperature": 0.6,
-                "max_tokens": 500
-            }
-            
-            headers = {
-                "Authorization": f"Bearer {groq_key}",
-                "Content-Type": "application/json",
-                "User-Agent": "SweetStory/1.0"
-            }
-            
-            req = urllib.request.Request(
-                groq_url,
-                data=json.dumps(groq_payload).encode("utf-8"),
-                headers=headers
-            )
-            
-            with urllib.request.urlopen(req, timeout=12) as response:
-                res_data = json.loads(response.read().decode("utf-8"))
-                choice = res_data.get("choices", [{}])[0]
-                message_obj = choice.get("message", {})
-                ai_reply = message_obj.get("content")
+                req = urllib.request.Request(
+                    groq_url,
+                    data=json.dumps(groq_payload).encode("utf-8"),
+                    headers=headers
+                )
                 
-                # If content is empty because tokens were spent on reasoning, fallback gracefully
-                if not ai_reply or not ai_reply.strip():
-                    ai_reply = generate_fallback_reply(last_user_message, ist)
+                with urllib.request.urlopen(req, timeout=12) as response:
+                    res_data = json.loads(response.read().decode("utf-8"))
+                    choice = res_data.get("choices", [{}])[0]
+                    message_obj = choice.get("message", {})
+                    content_str = message_obj.get("content")
                     
-        except Exception as exc:
-            logger.warning(f"Groq API call encountered issue: {exc}. Falling back to knowledge-engine.")
-            ai_reply = generate_fallback_reply(last_user_message, ist)
-    else:
-        # No Groq key yet: use intelligent rule-based knowledge engine
+                    if content_str and content_str.strip():
+                        ai_reply = content_str.strip()
+                        break
+                    else:
+                        logger.warning(f"Groq Key #{key_idx + 1} returned empty content (reasoning-only). Checking backup...")
+            except Exception as exc:
+                logger.warning(f"Groq Key #{key_idx + 1} call failed ({exc}). Failing over to next key...")
+                continue
+
+    if not ai_reply:
+        # Fallback to local high-intelligence knowledge engine
         ai_reply = generate_fallback_reply(last_user_message, ist)
         
     # Generate suggested action buttons

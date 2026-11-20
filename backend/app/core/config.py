@@ -54,11 +54,29 @@ class Settings(BaseSettings):
     SUBSCRIBE_RATE_LIMIT_MAX: int = 10
     SUBSCRIBE_RATE_LIMIT_WINDOW: int = 60  # 1 minute
     
-    # AI Assistant (Groq Cloud)
+    # AI Assistant (Groq Cloud Dual-Key Failover)
     GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+    GROQ_API_KEY_6: str = os.getenv("GROQ_API_KEY_6", "")
+    GROQ_API_KEY_7: str = os.getenv("GROQ_API_KEY_7", "")
+    GROQ_API_KEYS: Union[str, List[str]] = os.getenv("GROQ_API_KEYS", "")
     GROQ_MODEL: str = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
     ASSISTANT_RATE_LIMIT_MAX: int = 30
     ASSISTANT_RATE_LIMIT_WINDOW: int = 60  # 30 msgs / min
+
+    def get_all_groq_keys(self) -> List[str]:
+        keys = []
+        for k in [self.GROQ_API_KEY, self.GROQ_API_KEY_6, self.GROQ_API_KEY_7]:
+            if k and k.strip() and k.strip() not in keys:
+                keys.append(k.strip())
+        if isinstance(self.GROQ_API_KEYS, list):
+            for k in self.GROQ_API_KEYS:
+                if k and k.strip() and k.strip() not in keys:
+                    keys.append(k.strip())
+        elif isinstance(self.GROQ_API_KEYS, str) and self.GROQ_API_KEYS.strip():
+            for k in self.GROQ_API_KEYS.split(","):
+                if k.strip() and k.strip() not in keys:
+                    keys.append(k.strip())
+        return keys
 
     model_config = SettingsConfigDict(
         env_file=str(BASE_DIR / ".env"),
