@@ -1,0 +1,218 @@
+# Audit Ledger & Changelog: Sweet Story Cakes
+
+This ledger maintains an automated, immutable chronological record of all technical tasks, architecture migrations, security hardening, database operations, and user-facing features implemented in the Sweet Story Cakes system.
+
+---
+
+## [2026-11-20 21:53:00 IST] - Ticker Purge, Seamless Brandmark Integration, Luxury Search Modal & Instagram Link Update
+- **Objective / User Request**: Remove top ticker announcement bar completely. Enlarge the navbar and integrate the user's uploaded borderless wine brandmark (`media_1795191146404_222c228c.jpg`) so it mixes seamlessly into the `#5F060C` wine background. Move left navigation links further to the left to prevent any crowding against the logo. Add an interactive search modal with live website recommendations and category filters. Update the Instagram link to `https://www.instagram.com/sweetstory1114/` and remove Facebook and YouTube icons.
+- **Category**: Frontend
+- **Summary of Changes**:
+  - Processed `media_1795191146404_222c228c.jpg` to generate a high-definition transparent vector brandmark (`public/images/sweet_story_brandmark_transparent.png`) cropped tightly to (985, 626).
+  - Completely purged the top ticker announcement bar from `Navbar.jsx`.
+  - Enlarged the navbar height (`py-5 sm:py-6`) with `bg-[#5F060C]`, allowing the brandmark to mix seamlessly with the background.
+  - Re-architected navbar spacing into a balanced 3-column layout:
+    - Left items (`[Cake Quiz]`, `Signature Cakes`, `Custom Studio`, `Reviews`, `Locations`) pushed firmly to the left edge with generous breathing room.
+    - Center brandmark isolated with wide side padding.
+    - Right minimalist icons (Search, Customer Account, WhatsApp) pushed firmly to the right edge.
+  - Created `src/components/SearchModal.jsx` featuring real-time catalog search, popular spotlight cake recommendations, matching kitchen flavor cards, category pills, and smooth scrolling to targets.
+  - Updated `Footer.jsx` with official Instagram link `https://www.instagram.com/sweetstory1114/` and removed Facebook and YouTube icons.
+  - Adjusted `Hero.jsx` top padding to `pt-36 sm:pt-44 md:pt-48` for spacious clearance below the enlarged navbar.
+- **Files Affected**:
+  - `[CREATED]` public/images/sweet_story_brandmark.jpg -> Clean brandmark file.
+  - `[CREATED]` public/images/sweet_story_brandmark_transparent.png -> Transparent vector brandmark.
+  - `[CREATED]` src/components/SearchModal.jsx -> Interactive catalog search modal with recommendations.
+  - `[MODIFIED]` src/components/Navbar.jsx -> Enlarged wine navbar, ticker bar removed, brandmark integrated, left items spaced to far left.
+  - `[MODIFIED]` src/components/Footer.jsx -> Updated Instagram link, removed Facebook and YouTube.
+  - `[MODIFIED]` src/components/Hero.jsx -> Adjusted top padding for enlarged navbar.
+  - `[MODIFIED]` src/App.jsx -> Connected SearchModal state and triggers.
+  - `[MODIFIED]` tailwind.config.js -> Updated `brandWine` hex to `#5F060C`.
+- **Verification & Testing Proof**:
+  - Executed `npm run build`; production build passed in 6.11s with 0 errors (2,153 modules).
+  - Executed automated python verification script:
+    - Verified top ticker bar purged: `True`
+    - Verified seamless brandmark embedded: `True`
+    - Verified SearchModal & live recommendations bundled: `True`
+    - Verified Instagram link `@sweetstory1114`: `True`
+    - Verified Facebook and YouTube purged: `True`
+    - Verified brandmark HTTP status 200 (550,875 bytes): `True`
+    - Verified backend API proxy `/api/v1/health` HTTP 200: `True`
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Revert `Navbar.jsx`, `Footer.jsx`, and `App.jsx` from git history.
+
+## [2026-11-20 21:33:00 IST] - 4K High-Res Transparent Logo, Sweet Story Wine Navbar, Minimalist Stumptown Icons & Editorial Vintage Footer
+- **Objective / User Request**: Replace logo with user's uploaded 4K ultra-sharp version, make the navbar background the exact Sweet Story logo color (`#5C050D`), replace text/typos on the right side of the navbar with clean minimalist Stumptown icons (Search, Account, and WhatsApp bag), redesign the footer to match Stumptown's vintage warm sand layout (`#EAE5DB`) with bold editorial categories, a dedicated `LOCATIONS` column, newsletter input, circular social buttons, and customer login pill, and update the studio/locations section.
+- **Category**: Frontend
+- **Summary of Changes**:
+  - Converted the user's uploaded 4K logo (`media_1795190126181_55448905.jpg`) into a high-resolution 1009x1008 pixel-perfect transparent circular PNG (`public/images/sweet_story_logo.png`) preserving crisp white borders and typography.
+  - Added `brandWine` (`#5C050D` and shades) to `tailwind.config.js`.
+  - Updated `Navbar.jsx`:
+    - Set navbar background to exact Sweet Story logo wine color (`#5C050D`) and ticker bar to `#3D0308`.
+    - Placed 4K circular logo in center with high definition dropshadow.
+    - Replaced right-side text buttons with clean minimalist Stumptown-style icons: Search icon (triggers quick search drawer), User icon (with active session badge), and Shopping Bag icon (direct WhatsApp consultation).
+    - Styled left-side `Cake Quiz` button as a rounded-full pill with crisp white border.
+  - Overhauled `BakeryLocationStatus.jsx` into an editorial studio and regional delivery logistics guide (Lonand Flagship Studio & Workshop, Shirwal, Phaltan, Wai, and Satara district cold-chain transport).
+  - Transformed `Footer.jsx` into the Stumptown Coffee Roasters multi-column layout:
+    - Large bold editorial categories on the left (`SHOP`, `Subscribe`, `Wedding Tiers`, `Custom Studio`, `Theme Cakes`, `Party Bundles`).
+    - Dedicated `LOCATIONS` column (`Lonand Studio`, `Shirwal Hub`, `Phaltan Drop`, `Wai & Bhuinj`, `Satara City Logistics`).
+    - Dedicated `SUPPORT` column with `[Customer Login ->]` rounded pill button.
+    - Newsletter signup box with phone/mobile input and circular sand/gold social buttons (WhatsApp, Instagram, Facebook, YouTube).
+    - Legal bar with FSSAI standards and Sweet Story stamp emblem in bottom right.
+- **Files Affected**:
+  - `[CREATED]` public/images/sweet_story_logo.png -> 4K pixel-perfect transparent circle logo (1009x1008).
+  - `[MODIFIED]` tailwind.config.js -> Added `brandWine` palette (`#5C050D`).
+  - `[MODIFIED]` src/components/Navbar.jsx -> Wine background `#5C050D`, centered 4K logo, and right-side minimalist icons.
+  - `[MODIFIED]` src/components/BakeryLocationStatus.jsx -> Editorial studio & cold-chain logistics guide.
+  - `[MODIFIED]` src/components/Footer.jsx -> Stumptown warm parchment `#EAE5DB` directory footer with dedicated Locations column.
+  - `[MODIFIED]` src/App.jsx -> Connected footer login trigger to Customer Auth modal.
+- **Verification & Testing Proof**:
+  - `npm run build` executed and passed in 2.18s with 0 errors (2,152 modules transformed).
+  - Executed automated python test script against live Vite preview server:
+    - Verified brand color `#5C050D`: `True`
+    - Verified Stumptown footer background `#EAE5DB`: `True`
+    - Verified `LOCATIONS` column in footer: `True`
+    - Verified Customer Login pill in footer: `True`
+    - Verified 4K logo image (800,369 bytes) serving HTTP 200: `True`
+    - Verified backend API proxy `/api/v1/health`: HTTP 200: `True`
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Revert `Navbar.jsx`, `Footer.jsx`, and `BakeryLocationStatus.jsx` to previous git state.
+
+## [2026-11-20 21:12:00 IST] - Stumptown Header Overhaul, Center Logo & Craft Section Removal
+- **Objective / User Request**: Redesign the header to mirror Stumptown Coffee Roasters (top ticker announcement, standalone Cake Quiz CTA on the left, official circular Sweet Story logo centered on top, account & WhatsApp actions on the right). Remove "Open Now (10AM–10PM)" badge. Completely remove the "Our Craft" section and all associated philosophy text (01 Pure Veg, 02 Belgian Chocolate, 03 Structural Engineering, 04 Zero Preservatives). Incorporate user's authentic cake creation photos into the Signature Gallery.
+- **Category**: Frontend
+- **Summary of Changes**:
+  - Copied official Sweet Story Cakes circular logo (`sweet_story_logo.png`) and 3 authentic cake photos (`cake_jungle_train.jpg`, `cake_safari_adventure.jpg`, `cake_golden_snitch.jpg`) to `public/images/`.
+  - Re-architected `Navbar.jsx` to adopt the Stumptown Coffee Roasters 3-part layout:
+    - Top announcement ticker with coupon `SWEETSTORY10`, free delivery info, and pure veg studio note.
+    - Left side: Stumptown style standalone `Cake Quiz` button and clean navigation links.
+    - Center: Prominent circular Sweet Story Cakes logo centered horizontally across desktop and mobile.
+    - Right side: Customer account pill (`[Sign In]` / user name) and WhatsApp Order CTA.
+    - Removed "Open Now (10AM–10PM)" badge.
+    - Removed "Our Craft" navigation link.
+  - Completely deleted `QualityAndCraft.jsx` and removed its import and component render from `App.jsx`.
+  - Updated `Footer.jsx` to use the official circular logo and removed the `#craft` philosophy link.
+  - Updated `src/data/cakes.js` to feature real Sweet Story creations in the Signature Gallery: Jungle Express 3-Tier Model Train Cake, Jungle Safari Wildlife Milestone Cake, and Golden Snitch & Sorcerer Spellbook Cake.
+  - Updated `SignatureGallery.jsx` filter categories to reflect Celebration & Theme Cakes and Bespoke Sculptures.
+- **Files Affected**:
+  - `[CREATED]` public/images/sweet_story_logo.png -> Official circular Sweet Story logo.
+  - `[CREATED]` public/images/cake_jungle_train.jpg -> Authentic Jungle Express model train cake photo.
+  - `[CREATED]` public/images/cake_safari_adventure.jpg -> Authentic Safari Wildlife cake photo.
+  - `[CREATED]` public/images/cake_golden_snitch.jpg -> Authentic Golden Snitch wizard cake photo.
+  - `[MODIFIED]` src/components/Navbar.jsx -> Stumptown header layout with centered logo and ticker.
+  - `[MODIFIED]` src/App.jsx -> Removed QualityAndCraft component import and render.
+  - `[DELETED]` src/components/QualityAndCraft.jsx -> Deleted unused component file.
+  - `[MODIFIED]` src/data/cakes.js -> Integrated authentic cake photos into signature collection.
+  - `[MODIFIED]` src/components/SignatureGallery.jsx -> Updated filter tabs for theme and sculpture cakes.
+  - `[MODIFIED]` src/components/Footer.jsx -> Updated logo image and cleaned link targets.
+- **Verification & Testing Proof**:
+  - Executed `npm run build`; production build passed in 2.33s with 0 errors (2,152 modules).
+  - Executed automated integration test script against live Vite preview server:
+    - Verified `sweet_story_logo.png` is embedded: `True`
+    - Verified `Great celebrations deserve...` text is purged: `True`
+    - Verified `Open Now (10AM` badge is removed: `True`
+    - Verified all 3 authentic cake photos load: `True`
+    - Verified backend API proxy `/api/v1/health`: HTTP 200 `True`
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Restore `src/components/QualityAndCraft.jsx` and revert `Navbar.jsx` from git history.
+
+## [2026-11-20 20:56:45 IST] - Enterprise Security Hardening & Rate Limiter Verification
+- **Objective / User Request**: Implement comprehensive security protections: native Bcrypt cost 12 with 72-byte limit safety, IP rate limiting against brute force, security headers, server-side form validation, and security audit logging.
+- **Category**: Security
+- **Summary of Changes**: 
+  - Integrated sliding window rate limiter (`SlidingWindowRateLimiter`) capping login attempts to 5 per 15 minutes and subscriber submissions to 10 per minute per IP.
+  - Added enterprise security headers middleware injecting `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `X-XSS-Protection`, and `Content-Security-Policy`.
+  - Added strict Indian phone number validation regex (`^[6-9]\d{9}$`) via Pydantic field validators rejecting malformed numbers with HTTP 422.
+  - Added security audit logger persisting `AUTH_FAIL`, `AUTH_SUCCESS`, and anomalous requests to `security_logs` in MySQL.
+  - Created `.gitignore` excluding all `.env`, secrets, `.pem`, `.key`, `__pycache__`, and build outputs. Created `.env.example` template.
+- **Files Affected**:
+  - `[CREATED]` backend/app/core/rate_limit.py -> Sliding window in-memory rate limiter.
+  - `[CREATED]` backend/app/core/middleware.py -> Security headers & request audit logger middleware.
+  - `[CREATED]` backend/app/models/security_log.py -> SQLAlchemy audit log model.
+  - `[CREATED]` backend/app/crud/crud_security.py -> Event logging functions.
+  - `[CREATED]` .gitignore -> Secret isolation and repo security filter.
+  - `[CREATED]` backend/.env.example -> Safe template for environment secrets.
+- **Verification & Testing Proof**:
+  - Executed automated rapid-fire brute-force simulation against `/api/v1/auth/login`. Attempts 1-4 returned HTTP 401; attempt 5+ triggered HTTP 429 with retry-after header.
+  - Tested invalid phone format `12345` on `/api/v1/subscribers/subscribe`; returned HTTP 422 with validation error details.
+  - Inspected MySQL `security_logs` table; confirmed logged `AUTH_FAIL` events with client IP and timestamps.
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Remove rate limiter check in endpoint decorators or clear in-memory limiter table.
+
+## [2026-11-20 20:54:30 IST] - Frontend Auth & Dismissible Offer Subscription Integration
+- **Objective / User Request**: Integrate customer login/logout modal, user session persistence, and a non-intrusive dismissible notification for customer mobile phone subscription.
+- **Category**: Frontend
+- **Summary of Changes**:
+  - Created `AuthModal.jsx` matching the sharp Brewyard design language (`rounded-none`, `#120E0D` borders, high contrast) with Sign In, Create Account, and Customer Profile views.
+  - Created `OfferSubscriptionToast.jsx` capturing customer 10-digit mobile number for 10% discount codes (`SWEETSTORY10`), with a 1-click dismiss button storing dismissal in `localStorage` for 14 days.
+  - Created `src/services/api.js` providing fetch wrapper with JWT credential management and automatic header injection.
+  - Updated `Navbar.jsx` with customer account pill showing user's name/initials when signed in or "Sign In" when logged out.
+  - Updated `CustomCakeBuilder.jsx` to synchronize configured custom cakes with backend order quote records.
+  - Configured Vite proxy in `vite.config.js` forwarding `/api` requests to backend on port 8000.
+- **Files Affected**:
+  - `[CREATED]` src/services/api.js -> Frontend API client for auth, subscribers, and orders.
+  - `[CREATED]` src/components/AuthModal.jsx -> Customer login, registration, and profile modal.
+  - `[CREATED]` src/components/OfferSubscriptionToast.jsx -> Dismissible 10% offer subscription toast.
+  - `[MODIFIED]` src/components/Navbar.jsx -> Added customer account action & status indicator.
+  - `[MODIFIED]` src/components/CustomCakeBuilder.jsx -> Integrated backend order recording.
+  - `[MODIFIED]` src/App.jsx -> Re-hydrates customer session and renders AuthModal and OfferSubscriptionToast.
+  - `[MODIFIED]` vite.config.js -> Added `/api` proxy configuration.
+- **Verification & Testing Proof**:
+  - Executed `npm run build`; Vite built 2,153 modules in 2.97s with zero errors.
+  - Tested Vite proxy at `http://localhost:3000/api/v1/health` and `http://localhost:3000/api/v1/auth/login`; returned HTTP 200 with customer data.
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Revert modified frontend components to previous git commits.
+
+## [2026-11-20 20:51:30 IST] - FastAPI Full-Stack Backend & Dual MySQL / TiDB Cloud Setup
+- **Objective / User Request**: Build a robust Python FastAPI backend with SQLAlchemy 2.0 ORM, Alembic migrations, Pydantic v2 validation, native Bcrypt, JWT auth, and dual-mode database support (local MySQL Workbench and TiDB Cloud Serverless).
+- **Category**: Backend
+- **Summary of Changes**:
+  - Constructed backend architecture under `sweetstory/backend/app/`.
+  - Configured `Settings` with Pydantic BaseSettings loading from `backend/.env`.
+  - Implemented database engine with connection pooling (`pool_recycle=300`, `pool_pre_ping=True`) and dynamic TLS 1.3 CA certificate support for TiDB Cloud.
+  - Created SQLAlchemy models for `User`, `Subscriber`, `Order`, and `SecurityLog`.
+  - Implemented endpoints: `/api/v1/auth/register`, `/api/v1/auth/login`, `/api/v1/auth/me`, `/api/v1/auth/logout`, `/api/v1/subscribers/subscribe`, and `/api/v1/orders/quote`.
+  - Implemented server-side cake price verification calculating authoritative costs based on tier multiplier, flavor surcharge, weight, and custom toppers.
+- **Files Affected**:
+  - `[CREATED]` backend/.env -> Secret keys, database URL, CORS configurations.
+  - `[CREATED]` backend/requirements.txt -> Locked Python package dependencies.
+  - `[CREATED]` backend/app/main.py -> FastAPI entrypoint, lifespan table creation, and CORS.
+  - `[CREATED]` backend/app/core/config.py -> Pydantic settings.
+  - `[CREATED]` backend/app/core/security.py -> Native Bcrypt & JWT token management.
+  - `[CREATED]` backend/app/db/session.py -> SQLAlchemy sessionmaker & engine.
+  - `[CREATED]` backend/app/db/base.py -> Declarative Base.
+  - `[CREATED]` backend/app/models/user.py -> User ORM model.
+  - `[CREATED]` backend/app/models/subscriber.py -> Subscriber ORM model.
+  - `[CREATED]` backend/app/models/order.py -> Order ORM model.
+  - `[CREATED]` backend/app/schemas/user.py -> Pydantic v2 schemas with phone regex.
+  - `[CREATED]` backend/app/schemas/subscriber.py -> Subscriber schemas.
+  - `[CREATED]` backend/app/schemas/order.py -> Order schemas and quote models.
+  - `[CREATED]` backend/app/crud/crud_user.py -> Parameterized SQL queries for user authentication.
+  - `[CREATED]` backend/app/crud/crud_subscriber.py -> Idempotent subscriber upsert.
+  - `[CREATED]` backend/app/crud/crud_order.py -> Authoritative pricing engine.
+  - `[CREATED]` backend/app/api/deps.py -> Dependency injection for DB session and JWT user.
+  - `[CREATED]` backend/app/api/v1/api.py -> API router aggregator.
+  - `[CREATED]` backend/app/api/v1/endpoints/auth.py -> Auth endpoints.
+  - `[CREATED]` backend/app/api/v1/endpoints/subscribers.py -> Subscriber endpoints.
+  - `[CREATED]` backend/app/api/v1/endpoints/orders.py -> Order and quote endpoints.
+- **Verification & Testing Proof**:
+  - Ran automated Python integration test suite against live endpoints:
+    - `GET /health` -> HTTP 200 OK
+    - `POST /api/v1/auth/register` -> HTTP 201 Created (User ID 1, Ananya Deshmukh)
+    - `POST /api/v1/auth/login` -> HTTP 200 OK (JWT issued)
+    - `GET /api/v1/auth/me` -> HTTP 200 OK
+    - `POST /api/v1/subscribers/subscribe` -> HTTP 200 OK (Coupon SWEETSTORY10)
+    - `POST /api/v1/orders/quote` -> HTTP 200 OK (Authoritative total ₹8,036.25, deposit ₹2,410.88)
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Remove `sweetstory/backend` directory.
+
+## [2026-11-20 20:48:30 IST] - Database Initialization & Audit Ledger Setup
+- **Objective / User Request**: Initialize local MySQL database `sweetstory_db` and establish the mandatory Universal System Directive audit log.
+- **Category**: Database
+- **Summary of Changes**: Created `sweetstory_db` with `utf8mb4` character set on local MySQL instance (`localhost:3306`, user: `root`). Created root `CHANGELOG.md` file to track all subsequent changes.
+- **Files Affected**:
+  - `[CREATED]` CHANGELOG.md -> Root audit ledger adhering to the mandatory schema.
+- **Verification & Testing Proof**:
+  - Python PyMySQL database creation command executed against `localhost:3306`.
+  - Output: `sweetstory_db created or already exists.`
+- **Deployment Status**: Local Only
+- **Rollback Safety**: Drop `sweetstory_db` database via MySQL console (`DROP DATABASE sweetstory_db;`).
